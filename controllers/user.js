@@ -14,18 +14,17 @@ const usuariosGet = async(req, res=response)=>{
     });
 }
 const usuariosPost = async (req, res=response)=>{
-    const {nombre, correo, password, rol}=req.body;
-    const usuario=new Usuario(
+    let {nombre, correo, password}=req.body;
+    const salt=bcrypt.genSaltSync();
+    password=bcrypt.hashSync(password, salt);
+    const usuario=await  Usuario.create(
        { 
            nombre, 
            correo, 
            password, 
-           rol
+           username
         }
     );
-    const salt=bcrypt.genSaltSync();
-    usuario.password=bcrypt.hashSync(password, salt);
-    await usuario.save();
     res.json(usuario);
 }
 const usuariosPut = async(req, res=response)=>{

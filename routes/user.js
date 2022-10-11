@@ -1,7 +1,6 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const { 
-    esRolValido, 
     existeEmail,
     existeUsuarioId
     } = require('../helpers/dbValidators');
@@ -22,7 +21,6 @@ router.post(
                     check('correo', 'el correo no sirve').isEmail(),
                     check('nombre', 'necesita nombre').not().isEmpty(),
                     check('password', 'no sirve la contra').isLength({min:6}),
-                    check('rol').custom(esRolValido),
                     validarCampos
                 ],
                 usuariosPost 

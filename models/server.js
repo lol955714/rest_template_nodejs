@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { dbConnection } = require('../db/config');
+const { sequelize } = require('../db/config');
 
 class Server{
     constructor(){
@@ -11,7 +11,13 @@ class Server{
         this.conectar();
     }
     async conectar (){
-        await dbConnection();
+        await sequelize.sync()
+        .then(() => {
+            console.log("Synced db.");
+          })
+        .catch((err) => {
+            console.log("Failed to sync db: " + err.message);
+          });
     }
     midlewares(){
         this.app.use(express.static('public'));

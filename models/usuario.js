@@ -1,38 +1,32 @@
-const { Schema, model} = require('mongoose');
-const usuarioSchema = Schema ({
+const { DataTypes } = require('sequelize');
+const {sequelize } = require ('../db/config.js');
+
+const User = sequelize.define('User', {
     nombre:{
-        type: String, 
+        type: DataTypes.STRING, 
         required: [true, 'ponele nombre']
     },
     correo:{
-        type: String,
+        type: DataTypes.STRING,
         required:[true, 'ponele correo'],
         unique:true
     },
     password:{
-        type: String,
+        type: DataTypes.STRING,
         required:[true, 'ponele contra']
     },
-    img:{
-        type: String,
-    },
-    rol:{
-        type: String,
-        required:[true, 'ponele rol'],
-        enum: ['ADMIN_ROLE', 'USER_ROLE']
+    username:{
+        type: DataTypes.STRING,
     },
     estado:{
-        type: Boolean,
+        type: DataTypes.BOOLEAN,
         default:true
     },
-    google:{
-        type: Boolean,
-        default:false
-    },
-})
-usuarioSchema.methods.toJSON=function(){
-    const { __v, password,_id, ...user } = this.toObject();
-    user.uid=_id;
-    return user;
-}
-module.exports=model('Usuario', usuarioSchema);
+  }, {
+    paranoid: true,
+  });
+
+
+module.exports={
+    User
+};
