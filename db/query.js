@@ -1,12 +1,17 @@
-import {sequelize} from './config.js';
+const { sequelize } = require('../db/config');
 
-const queryRun = (sql)=>{
-    const [results, metadata] = await sequelize.query(sql);
-    return {
-        results,
-        metadata
+const queryRun = async (sql) => {
+    let response = '';
+    try {
+        const [results] = await sequelize.query(sql);
+        response = results;
+    } catch (error) {
+        console.log(error);
+        response = error.message;
     }
+    console.log(response);
+    return response;
 }
 module.exports = {
     queryRun
-    };
+};
