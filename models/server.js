@@ -30,7 +30,7 @@ class Server{
         this.app.use('/api/mediciones',require('../routes/mediciones'));
     }
     hey_listen(){
-        this.app.listen(this.port,()=>{
+        return this.app.listen(this.port,()=>{
             console.log("sirve", `localhost:${process.env.PORT}`);
         });
     }
