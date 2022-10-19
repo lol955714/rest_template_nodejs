@@ -1,7 +1,7 @@
-const User = require('../models/usuario');
+const User = require('../models/usuario').User;
 
 const existeEmail=async(correo='')=>{
-    const existeEmail= await User.findAll({
+    const existeEmail= await User.findOne({
         where:{
             correo
         }
