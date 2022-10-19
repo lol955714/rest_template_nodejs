@@ -31,7 +31,7 @@ class Server{
     }
     hey_listen(){
         this.app.listen(this.port,()=>{
-            console.log("sirve", process.env.PORT);
+            console.log("sirve", `localhost:${process.env.PORT}`);
         });
     }
 }

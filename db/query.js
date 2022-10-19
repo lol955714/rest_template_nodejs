@@ -9,7 +9,6 @@ const queryRun = async (sql) => {
         console.log(error);
         response = error.message;
     }
-    console.log(response);
     return response;
 }
 module.exports = {
